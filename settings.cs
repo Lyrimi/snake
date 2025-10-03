@@ -19,7 +19,7 @@ public class Settings
     public int height = Console.BufferHeight;
     public Settings(Box parrent)
     {
-        settingsBox = new(new Cords(parrent.pos.x + parrent.width + 1, parrent.pos.y), parrent.width, parrent.height);
+        settingsBox = new(new Coords(parrent.pos.x + parrent.width + 1, parrent.pos.y), parrent.width, parrent.height);
 
         textOptions.Add($"Snake Speed: {SnakeInterval}");
         descriptions.Add("Lower = Faster");

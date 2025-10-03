@@ -5,19 +5,19 @@ public class Box
 {
     char[] boxDrawCornors = ['┏', '┓', '┗', '┛'];
     char[] boxDrawLines = ['┃', '━'];
-    public Cords pos;
+    public Coords pos;
     public int width;
     public int height;
 
-    public Cords center;
+    public Coords center;
 
 
-    public Box(Cords pos, int width, int height)
+    public Box(Coords pos, int width, int height)
     {
         this.pos = pos;
         this.width = width;
         this.height = height;
-        center = new Cords(width / 2 + pos.x, height / 2 + pos.y);
+        center = new Coords(width / 2 + pos.x, height / 2 + pos.y);
     }
 
     public void Draw()

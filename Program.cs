@@ -1,10 +1,10 @@
 ﻿namespace snake;
 
-public struct Cords
+public struct Coords
 {
     public int x;
     public int y;
-    public Cords(int x, int y)
+    public Coords(int x, int y)
     {
         this.x = x;
         this.y = y;
@@ -32,10 +32,10 @@ class Program
 
     static void Menu()
     {
-        Cords center = new(Console.BufferWidth / 2, Console.BufferHeight / 2);
+        Coords center = new(Console.BufferWidth / 2, Console.BufferHeight / 2);
         int width = 30;
         int height = 20;
-        Cords boxPos = new Cords(center.x - width / 2, center.y - height / 2);
+        Coords boxPos = new Coords(center.x - width / 2, center.y - height / 2);
         Box menuBox = new(boxPos, width, height);
         Console.Write($"\e[{center.y};{center.x}H#");
         Thread.Sleep(1000);

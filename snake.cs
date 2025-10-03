@@ -10,26 +10,18 @@ public class Snake(Settings settings)
 
     Random random = new();
 
-    static void AddSegment(ref List<Cords> snake)
-    {
-        snake.Add(snake[snake.Count - 1]);
-    }
+    static void AddSegment(ref List<Coords> snake) => snake.Add(snake[snake.Count - 1]);
+    static Coords AddArrayToCords(Coords cords, int[] array2) => new(cords.x + array2[0], cords.y + array2[1]);
 
 
-    static Cords AddArrayToCords(Cords cords, int[] array2)
-    {
-        return new Cords(cords.x + array2[0], cords.y + array2[1]);
-    }
-
-
-    static bool Moveplayer(ref List<Cords> snake, int[] dir, Cords[] bounds, ref Cords apple)
+    static bool Moveplayer(ref List<Coords> snake, int[] dir, Coords[] bounds, ref Coords apple)
     {
         int[] zero = [0, 0];
         if (Enumerable.SequenceEqual(dir, zero))
         {
             return true;
         }
-        Cords head = AddArrayToCords(snake[0], dir);
+        Coords head = AddArrayToCords(snake[0], dir);
 
         //Colision checks
         if (head.x <= bounds[0].x | head.x >= bounds[1].x + 1 | head.y <= bounds[0].y | head.y >= bounds[1].y + 2)
@@ -53,20 +45,20 @@ public class Snake(Settings settings)
     }
 
 
-    static void DrawPlayer(ref List<Cords> snake, Cords removedTail)
+    static void DrawPlayer(ref List<Coords> snake, Coords removedTail)
     {
         string playerRend = "";
         playerRend += $"\e[{removedTail.y};{removedTail.x}H ";
-        foreach (Cords snakeSeg in snake)
+        foreach (Coords snakeSeg in snake)
         {
             playerRend += $"\e[{snakeSeg.y};{snakeSeg.x}H\e[38;5;28m#";
         }
         Console.Write(playerRend);
     }
 
-    static Cords NewApple(List<Cords> snake, Cords[] bounds, Random random)
+    static Coords NewApple(List<Coords> snake, Coords[] bounds, Random random)
     {
-        Cords apple = new(random.Next(bounds[0].x + 1, bounds[1].x + 1), random.Next(bounds[0].y + 1, bounds[1].y + 2));
+        Coords apple = new(random.Next(bounds[0].x + 1, bounds[1].x + 1), random.Next(bounds[0].y + 1, bounds[1].y + 2));
         while (snake.Contains(apple))
         {
             apple = new(random.Next(bounds[0].x + 1, bounds[1].x + 1), random.Next(bounds[0].y + 1, bounds[1].y + 2));
@@ -86,9 +78,9 @@ public class Snake(Settings settings)
 
         int width = 50;
         int height = 15;
-        Cords center = new(Console.BufferWidth / 2 + 1, Console.BufferHeight / 2);
+        Coords center = new(Console.BufferWidth / 2 + 1, Console.BufferHeight / 2);
         Console.ForegroundColor = ConsoleColor.White;
-        Box deathScreen = new(new Cords(center.x - width / 2, center.y - height / 2), width, height);
+        Box deathScreen = new(new Coords(center.x - width / 2, center.y - height / 2), width, height);
 
         deathScreen.Draw();
         new TextBox(deathScreen, EndText, 0).Draw();
@@ -121,9 +113,9 @@ public class Snake(Settings settings)
 
 
     Box? gameBox;
-    Cords apple = new();
+    Coords apple = new();
 
-    Cords center = new();
+    Coords center = new();
 
 
     public void Play()
@@ -147,12 +139,12 @@ public class Snake(Settings settings)
 
         int boardlength = (width - 2) * (height - 2);
 
-        List<Cords> snake = new();
-        Cords removedTail = new(2, 2);
+        List<Coords> snake = new();
+        Coords removedTail = new(2, 2);
 
         center = new(Console.BufferWidth / 2, Console.BufferHeight / 2);
 
-        Cords[] bounds = [new Cords(center.x - width / 2 + 1, center.y - height / 2 + 1), new Cords(center.x - width / 2 + width - 1, center.y - height / 2 + height - 2)];
+        Coords[] bounds = [new Coords(center.x - width / 2 + 1, center.y - height / 2 + 1), new Coords(center.x - width / 2 + width - 1, center.y - height / 2 + height - 2)];
         gameBox = new(bounds[0], width, height);
         Console.Clear();
         gameBox.Draw();
