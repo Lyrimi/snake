@@ -104,7 +104,6 @@ public class Snake(Settings settings)
     int[][] dirList = [[0, -1], [-1, 0], [0, 1], [1, 0]];
 
     bool alive = true;
-    bool moved = false;
     bool devMode = false;
 
     const int frameRate = 120;

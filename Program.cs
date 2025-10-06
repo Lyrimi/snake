@@ -26,7 +26,13 @@ class Program
         //IMPORTANT DON'T REMOVE
         Console.OutputEncoding = System.Text.Encoding.Unicode;
         Console.CursorVisible = false;
+
+
+        //Makes it run the exit code when stoped by ctrl+c
+        Console.CancelKeyPress += delegate { Close(); };
+
         Console.Clear();
+
         Menu();
     }
 
@@ -37,8 +43,6 @@ class Program
         int height = 20;
         Coords boxPos = new Coords(center.x - width / 2, center.y - height / 2);
         Box menuBox = new(boxPos, width, height);
-        Console.Write($"\e[{center.y};{center.x}H#");
-        Thread.Sleep(1000);
         List<TextBox> menuTexts = new();
         menuTexts.Add(new TextBox(menuBox, "A snake console game", 1));
         menuTexts.Add(new TextBox(menuBox, new string('=', width - 2), 3));
